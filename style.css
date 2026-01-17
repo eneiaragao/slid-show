@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* Inclua box-sizing para melhor controle de layout */
+    box-sizing: border-box; 
+}
+
+/* ==================================== */
+/* ESTILOS BASE (PADRÃO PARA TELAS GRANDES) */
+/* ==================================== */
+
+.container-slide {
+    display: flex;
+    justify-content: space-between;
+    
+    /* 1. Limitar o tamanho máximo do slider para telas gigantes */
+    width: 50vw;
+    max-width: 900px; /* Limite a largura máxima em pixels */
+    
+    height: 50vh;
+    max-height: 500px; /* Limite a altura máxima em pixels */
+    
+    background-color: black;
+    margin: 20vh auto; /* Margem vertical ainda relativa */
+    border-radius: 10px;
+    box-shadow: 0 20px 30px black;
+    border: 5px solid black;
+    position: relative; /* CRÍTICO: Container pai do absolute */
+}
+
+.container-items {
+    /* Remova position: absolute; se você não precisar de sobreposição de elementos no slider */
+    position: absolute; 
+    
+    /* Herda o tamanho do container-slide */
+    width: 100%; 
+    height: 100%; 
+    
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.item {
+    /* 2. Item deve ocupar 100% da largura do container */
+    width: 100%; 
+    min-width: 100%; /* Garante que cada item ocupe a largura completa no flexbox */
+    height: 100%;
+    transition: all 1s;
+}
+
+.item:first-child {
+    /* Manter a lógica de transição se o JS estiver movendo o margin */
+    margin-left: -100%; 
+}
+
+.item img {
+    /* 3. Imagem deve preencher o item */
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; /* Melhor para sliders: cobre a área sem distorcer (corta o excesso) */
+    border-radius: 10px;
+}
+
+.action-button {
+    font: bold 30px sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    color: #00000000;
+    user-select: none;
+    z-index: 10; /* Eleva a prioridade sobre as imagens */
+}
+
+.action-button:hover {
+    color: white;
+    background-color: #00000055;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 1s;
+}
+
+/* ==================================== */
+/* 📱 MEDIA QUERY: AJUSTES PARA CELULARES (Telas com até 768px de largura) */
+/* ==================================== */
+@media (max-width: 768px) {
+    
+    /* 4. Usar quase 100% da largura da tela, com um pequeno respiro */
+    .container-slide {
+        width: 90vw;
+        height: 60vh; /* Aumenta a altura relativa no mobile para melhor visualização */
+        max-width: none;
+        max-height: none;
+        margin: 5vh auto; /* Reduz margem superior para aproveitar o espaço */
+    }
+    
+    /* O slider precisa de mais área de toque */
+    .action-button {
+        width: 70px; /* Aumenta a área de clique */
+        font-size: 40px;
+    }
+}
+
+/* Opcional: Para telas EXTREMAMENTE estreitas e com pouca altura */
+@media (max-width: 480px) and (max-height: 600px) {
+    .container-slide {
+        width: 95vw;
+        height: 70vh;
+        margin: 2vh auto;
+    }
+}
